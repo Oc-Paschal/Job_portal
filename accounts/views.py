@@ -1,13 +1,12 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
-# Create your views here.
 
 def register(request):
-
     if request.method == 'POST':
+
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
@@ -21,13 +20,23 @@ def register(request):
             messages.error(request, 'Email already exists.')
             return redirect('register')
 
-        user = User.objects.create_user(username=username, email=email, password=password)
-        user.profile.role = role  # Set the role for the profile
-        user.save()
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password
+        )
 
+        # Set the user's profile role
+        user.profile.role = role
+        user.profile.save()
+
+        # Log the user in
         login(request, user)
+
         messages.success(request, 'Registration successful.')
-        return redirect('register')  # Redirect to a success page or home page
+
+        # Send user to dashboard
+        return redirect('dashboard')
 
     return render(request, 'accounts/register.html')
 
@@ -35,27 +44,23 @@ def register(request):
 def user_login(request):
 
     if request.method == 'POST':
+
         username = request.POST.get('username')
         password = request.POST.get('password')
-
 
         user = authenticate(
             request,
             username=username,
             password=password
-        ) 
-
+        )
 
         if user is not None:
-            login(request,user)
-            return redirect('login')
+            login(request, user)
+            return redirect('dashboard')
 
         messages.error(request, 'Invalid username or password.')
 
-
     return render(request, 'accounts/login.html')
-
-
 
 
 def user_logout(request):

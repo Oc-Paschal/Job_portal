@@ -20,7 +20,7 @@ class Job(models.Model):
     location = models.CharField(max_length=200)
     salary = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     posted_at = models.DateTimeField(auto_now_add=True)
-    dealine = models.DateTimeField(null=True, blank=True)
+    deadline = models.DateTimeField(null=True, blank=True)
 
 
     def __str__(self):

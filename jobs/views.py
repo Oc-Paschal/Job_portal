@@ -13,8 +13,8 @@ def create_job(request):
             location=request.POST.get('location'),
             salary=request.POST.get('salary'),
             job_type=request.POST.get('job_type'),
-            requirements=request.POST.get('requirements'),
             deadline=request.POST.get('deadline'),
+            
         )
 
         return redirect('job_list')
@@ -23,5 +23,5 @@ def create_job(request):
 
 
 def job_list(request):
-    jobs = Job.objects.all().order_by('-created_at')
+    jobs = Job.objects.all().order_by('-posted_at')
     return render(request, 'jobs/job_list.html', {'jobs': jobs})

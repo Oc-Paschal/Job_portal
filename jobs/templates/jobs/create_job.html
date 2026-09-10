@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Job</title>
+</head>
+
+<body>
+
+    <h1>Create a Job</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Job Title</label><br>
+        <input type="text" name="title" required>
+
+        <br><br>
+
+        <label>Description</label><br>
+        <textarea name="description" required></textarea>
+
+        <br><br>
+
+        <label>Location</label><br>
+        <input type="text" name="location" required>
+
+        <br><br>
+
+        <label>Salary</label><br>
+        <input type="number" name="salary" step="0.01" required>
+
+        <br><br>
+
+        <label>Job Type</label><br>
+        <select name="job_type" required>
+            <option value="full_time">Full Time</option>
+            <option value="part_time">Part Time</option>
+            <option value="remote">Remote</option>
+            <option value="internship">Internship</option>
+        </select>
+
+        <br><br>
+
+        <label>Requirements</label><br>
+        <textarea name="requirements" required></textarea>
+
+        <br><br>
+
+        <label>Application Deadline</label><br>
+        <input type="date" name="deadline" required>
+
+        <br><br>
+
+        <label>Deadline</label>
+        <input type="date" name="deadline" required>
+
+        <button type="submit">Post Job</button>
+    </form>
+
+    <br>
+
+    <a href="{% url 'job_list' %}">View Jobs</a>
+
+</body>
+</html>
